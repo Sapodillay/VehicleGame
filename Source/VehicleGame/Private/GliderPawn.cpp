@@ -23,7 +23,9 @@ void AGliderPawn::BeginPlay()
 {
 	Super::BeginPlay();
 
-	
+	//Physics calculations
+	FTimerHandle PhysicsTimerHandle;
+	GetWorld()->GetTimerManager().SetTimer(PhysicsTimerHandle, this, &AGliderPawn::HandleGliderPhysics, 0.05f, true, 0);
 
 	if (const APlayerController* PlayerController = Cast<APlayerController>(Controller))
 	{
@@ -39,6 +41,8 @@ void AGliderPawn::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	//Deltatime should affect movement speed.
+	//HandleGliderPhysics();
 }
 
 // Called to bind functionality to input
@@ -54,7 +58,29 @@ void AGliderPawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 
 }
 
+void AGliderPawn::HandleGliderPhysics()
+{
+	
+	
+	//Get forward vector
+	FVector ForwardDirection = GetActorForwardVector();
+	//Add any speed modifiers
+	
+	//Calculate gravity
+	
 
+	//Apply gravity to new movement vector.
+
+	//Apply any velocity.
+
+	UE_LOG(LogTemp, Warning, TEXT("Speed %f, Forward: x:%f y:%f"), MovementSpeed, ForwardDirection.X, ForwardDirection.Y)
+	//Add velocity/apply movement to the glider
+	//AddMovementInput(ForwardDirection, MovementSpeed, true);
+
+	AddActorWorldOffset(ForwardDirection * MovementSpeed);
+
+	
+}
 
 void AGliderPawn::Move(const FInputActionValue& Value)
 {

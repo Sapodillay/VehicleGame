@@ -43,6 +43,12 @@ class VEHICLEGAME_API AGliderPawn : public APawn
 	UPROPERTY(EditDefaultsOnly, Category = Movement)
 	float YawSpeed;
 
+	//Temporarily is const, will be changed at runtime inside Move.
+	UPROPERTY(EditDefaultsOnly, Category = Movement)
+	float MovementSpeed;
+
+	void HandleGliderPhysics();
+
 	void Move(const FInputActionValue& Value);
 	void Look(const FInputActionValue& Value);
 
