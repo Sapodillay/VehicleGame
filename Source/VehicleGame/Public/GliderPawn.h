@@ -37,6 +37,11 @@ class VEHICLEGAME_API AGliderPawn : public APawn
 
 #pragma endregion Input
 
+	UPROPERTY(VisibleAnywhere, Category = Movement)
+	float GliderYaw;
+
+	UPROPERTY(EditDefaultsOnly, Category = Movement)
+	float YawSpeed;
 
 	void Move(const FInputActionValue& Value);
 	void Look(const FInputActionValue& Value);

@@ -23,6 +23,8 @@ void AGliderPawn::BeginPlay()
 {
 	Super::BeginPlay();
 
+	
+
 	if (const APlayerController* PlayerController = Cast<APlayerController>(Controller))
 	{
 		if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PlayerController->GetLocalPlayer()))
@@ -52,13 +54,26 @@ void AGliderPawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 
 }
 
+
+
 void AGliderPawn::Move(const FInputActionValue& Value)
 {
-	UE_LOG(LogTemp, Warning, TEXT("Movement"));
+
+	const FVector2D MovementVector = Value.Get<FVector2D>();
+
+	GliderYaw = MovementVector.X;
+
+	const FRotator NewRotation = FRotator(0.f, GliderYaw * YawSpeed, 0.0f);
+	const FQuat QuatRotation = FQuat(NewRotation);
+	
+
+	AddActorLocalRotation(QuatRotation, false, 0, ETeleportType::None);
+
+	
 }
 
 void AGliderPawn::Look(const FInputActionValue& Value)
 {
-	UE_LOG(LogTemp, Warning, TEXT("Movement"));
+
 	
 }
